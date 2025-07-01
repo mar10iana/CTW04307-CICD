@@ -1,0 +1,15 @@
+name: "Setup YQ CLI"
+description: "Install a specific version of a tool and add it to the PATH"
+inputs:
+  #TODO something is missing here :)
+  version:
+    description: "version"
+    required: true
+  architecture:
+    description: "arquitecture"
+    required: false
+    default: "amd64"
+runs:
+  #TODO something is missing here :)
+  using: "node20"
+  main: "dist/index.js"
