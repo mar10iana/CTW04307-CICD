@@ -1,0 +1,21 @@
+name: Test Setup YQ Action
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: runner3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup YQ CLI
+        uses: ./
+        with:
+          version: 4.40.5
+          architecture: amd64
+
+      - name: Run yq --version
+        run: yq --version
