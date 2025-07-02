@@ -30,7 +30,7 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Upload build artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-${{ matrix.os }}-node-${{ matrix.node-version }}
@@ -47,12 +47,12 @@ jobs:
         os: [ubuntu-latest, windows-latest]
 
     steps:
-      - name: Download build artifact
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: build-${{ matrix.os }}-node-${{ matrix.node-version }}
           path: downloaded-build/
 
-      - name: List contents of downloaded build
+      - name: List contents
         run: ls -R downloaded-build/
 
