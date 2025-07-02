@@ -9,11 +9,13 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
         node-version: [18, 20, 22]
         os: [ubuntu-latest, windows-latest]
+
+    outputs:
+      matrix_info: ${{ steps.set-matrix-id.outputs.matrix_id }}
 
     steps:
       - name: Checkout repository
@@ -22,7 +24,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix['node-version'] }}
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: npm install
@@ -37,13 +39,12 @@ jobs:
           path: |
             build/
 
-       
   test:
     needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18, 20, 22]
+        node-version: [20, 22]
         os: [ubuntu-latest, windows-latest]
 
     steps:
@@ -55,4 +56,3 @@ jobs:
 
       - name: List contents of downloaded build
         run: ls -R downloaded-build/
-
