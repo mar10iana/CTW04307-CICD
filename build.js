@@ -1,0 +1,8 @@
+const fs = require('fs');
+const path = require('path');
+
+fs.mkdirSync('build', { recursive: true });
+fs.copyFileSync('src/server.js', 'build/server.js');
+fs.cpSync('public', 'build/public', { recursive: true });
+
+console.log('Build completed.');
