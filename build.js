@@ -1,5 +1,5 @@
 import fs from 'fs';
-const path = require('path');
+import path from 'path';
 
 fs.mkdirSync('build', { recursive: true });
 fs.copyFileSync('src/server.js', 'build/server.js');
