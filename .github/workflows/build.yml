@@ -30,29 +30,11 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-${{ matrix.os }}-node-${{ matrix.node-version }}
-          path: |
-            build/
+      - name: Run ESLint
+        run: npx eslint .
 
+      - name: Run tests
+        run: npm test
        
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18, 20, 22]
-        os: [ubuntu-latest, windows-latest]
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build-${{ matrix.os }}-node-${{ matrix.node-version }}
-          path: downloaded-build/
-
-      - name: List contents
-        run: ls -R downloaded-build/
+  
 
