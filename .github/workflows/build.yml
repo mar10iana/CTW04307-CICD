@@ -48,4 +48,4 @@ jobs:
     uses: ./.github/workflows/test.yml
     with:
       node-versions: '[18, 20, 22]'
-      os-list: '[ubuntu-latest, windows-latest]'
+      os-list: '["ubuntu-latest", "windows-latest"]'
