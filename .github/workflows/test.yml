@@ -12,11 +12,12 @@ on:
 
 jobs:
   lint-and-test:
-    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ${{ fromJson(inputs.node-versions) }}
+        node-version: ${{ fromJson(inputs.node-versions) }}
         os: ${{ fromJson(inputs.os-list) }}
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout code
@@ -25,7 +26,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610
         with:
-          node-version: ${{ matrix.node }}
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: npm install
