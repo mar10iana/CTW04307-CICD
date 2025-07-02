@@ -1,0 +1,27 @@
+name: Scan for vulnerabilities
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  audit:
+      name: Security Audit
+      runs-on: ubuntu-latest
+  
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+  
+        - name: Set up Node.js
+          uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610
+          with:
+            node-version: 20
+  
+        - name: Install dependencies
+          run: npm install
+  
+        - name: Run npm audit
+          run: npm audit --audit-level=moderate

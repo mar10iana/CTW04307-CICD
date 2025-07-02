@@ -1,0 +1,37 @@
+name: Lint and Test
+
+on:
+  workflow_call:
+    inputs:
+      node-versions:
+        required: true
+        type: string
+      os-list:
+        required: true
+        type: string
+
+jobs:
+  lint-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node: ${{ fromJson(inputs.node-versions) }}
+        os: ${{ fromJson(inputs.os-list) }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Setup Node.js
+        uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npx eslint .
+
+      - name: Run tests
+        run: npm test
